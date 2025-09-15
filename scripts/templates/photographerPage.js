@@ -1,16 +1,4 @@
-/*
- * File: photographerPage.js
- * Purpose: [Short description of this JavaScript file's responsibility]
- * Author: [Your Name] <you@example.com>
- * Date: 2025-09-15
- * Notes:
- *  - Keep functions small and pure when possible.
- *  - Document public functions and side effects.
- */
 
-// Template étendu pour la page photographe (réutilise le template de base)
-/* eslint-disable no-unused-vars */
-/* exported photographerPageTemplate */
 function photographerPageTemplate(photographer) {
   const { name, id, city, country, tagline, price, portrait } = photographer;
 

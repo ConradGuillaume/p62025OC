@@ -1,12 +1,3 @@
-/*
- * File: lightbox.js
- * Purpose: [Short description of this JavaScript file's responsibility]
- * Author: [Your Name] <you@example.com>
- * Date: 2025-09-15
- * Notes:
- *  - Keep functions small and pure when possible.
- *  - Document public functions and side effects.
- */
 
 // Variables globales pour la LightBox
 let lightboxMediaData = [];
@@ -299,12 +290,6 @@ function handleLightboxBackdropClick(e) {
 // Obtenir le nom du photographe actuel (helper function)
 function getCurrentPhotographerName() {
   // Récupérer depuis l'URL ou depuis une variable globale
-  // const urlParams = new URLSearchParams(window.location.search);
-  // photographerId may be used in future extensions; currently unused
-  // const photographerId = urlParams.get('id');
-
-  // Cette fonction devrait être améliorée pour récupérer le nom du photographe
-  // Pour l'instant, on utilise une approche simple
   const photographerNameElement = document.querySelector(
     '.photographer-page-name'
   );

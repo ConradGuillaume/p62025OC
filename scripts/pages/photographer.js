@@ -1,12 +1,3 @@
-/*
- * File: photographer-new.js
- * Purpose: [Short description of this JavaScript file's responsibility]
- * Author: [Your Name] <you@example.com>
- * Date: 2025-09-15
- * Notes:
- *  - Keep functions small and pure when possible.
- *  - Document public functions and side effects.
- */
 
 // Récupération des données du photographe et de ses médias
 async function getPhotographerData() {
@@ -48,10 +39,8 @@ function getMediaByPhotographerId(media, photographerId) {
   return photographerMedia;
 }
 
-// Affichage de l'en-tête du photographe avec le template étendu
-// Module-level reference to the instantiated photographer page model
+
 let currentPhotographerPageModel = null;
-// Module-level reference to the current photographer media and name for sorting
 let currentPhotographerMedia = [];
 let currentPhotographerName = "";
 
@@ -222,14 +211,9 @@ function renderSortedMedia(sortBy) {
   }
 }
 
-// Note: updateTotalLikes and likes observation are provided by the
-// photographerPageTemplate (photographerPage.js template). We rely on
-// photographerPageModel.updateTotalLikes() after rendering media.
-
 // Fonction principale d'initialisation
 async function init() {
   console.log("=== INITIALISATION DE LA PAGE PHOTOGRAPHE ===");
-
   // Récupérer l'ID depuis l'URL
   const photographerId = getPhotographerIdFromURL();
 
@@ -278,5 +262,4 @@ async function init() {
   console.log("=== PAGE PHOTOGRAPHE INITIALISÉE ===");
 }
 
-// Lancement de l'initialisation
 init();

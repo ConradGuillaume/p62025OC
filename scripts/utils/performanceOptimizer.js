@@ -1,12 +1,3 @@
-/*
- * File: performanceOptimizer.js
- * Purpose: [Short description of this JavaScript file's responsibility]
- * Author: [Your Name] <you@example.com>
- * Date: 2025-09-15
- * Notes:
- *  - Keep functions small and pure when possible.
- *  - Document public functions and side effects.
- */
 
 // Optimisations de performance pour Fisheye
 class PerformanceOptimizer {
@@ -138,10 +129,7 @@ class PerformanceOptimizer {
 // Initialiser l'optimiseur dès que possible
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
-    // optimizer est créé pour initialiser les optimisations et peut être conservé pour debug
-    // eslint-disable-next-line no-unused-vars
     const optimizer = new PerformanceOptimizer();
-
     // Mesurer les performances en développement
     if (
       window.location.hostname === 'localhost' ||
@@ -151,12 +139,10 @@ if (document.readyState === 'loading') {
     }
   });
 } else {
-  // optimizer est créé pour initialiser les optimisations et peut être conservé pour debug
-  // eslint-disable-next-line no-unused-vars
   const optimizer = new PerformanceOptimizer();
 }
 
-// Export pour utilisation dans d'autres modules
+
 if (typeof window !== 'undefined') {
   window.PerformanceOptimizer = PerformanceOptimizer;
 }

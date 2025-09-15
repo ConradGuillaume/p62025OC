@@ -1,17 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* exported mediaFactory */
-/*
- * File: media.js
- * Purpose: [Short description of this JavaScript file's responsibility]
- * Author: [Your Name] <you@example.com>
- * Date: 2025-09-15
- * Notes:
- *  - Keep functions small and pure when possible.
- *  - Document public functions and side effects.
- */
 
 function mediaFactory(data, photographerName) {
-  /* exported mediaFactory */
   const { id, title, image, video, likes, date, price } = data;
 
   // Système de suivi des likes (stockage local pour persister entre les sessions)

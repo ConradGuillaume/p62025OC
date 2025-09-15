@@ -1,12 +1,3 @@
-/*
- * File: pageTransitions.js
- * Purpose: [Short description of this JavaScript file's responsibility]
- * Author: [Your Name] <you@example.com>
- * Date: 2025-09-15
- * Notes:
- *  - Keep functions small and pure when possible.
- *  - Document public functions and side effects.
- */
 
 // Gestionnaire de transitions entre pages - Version simplifiée
 class PageTransitionManager {
