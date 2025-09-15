@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <title>Fisheye - Photographe</title>
+    <meta
+      name="description"
+      content="Découvrez le portfolio et les œuvres d'un photographe talentueux."
+    />
+  </head>
+  <body>
+    <div class="page-loader" id="pageLoader">
+      <div class="loader-spinner"></div>
+      <div class="loader-text">Chargement du portfolio...</div>
+    </div>
+
+    <div class="page-content" id="pageContent">
+      <header role="banner">
+        <a href="index.html" aria-label="Retour à la page d'accueil">
+          <img
+            src="assets/images/logo.png"
+            class="logo"
+            alt="Fisheye, plateforme de photographes"
+          />
+        </a>
+      </header>
+      <main id="main" role="main">
+        <div class="photograph-header">
+          <button
+            class="contact_button"
+            onclick="displayModal(); console.log('onclick déclenché');"
+          >
+            Contactez-moi
+          </button>
+        </div>
+
+        <div class="sort-section">
+          <label for="sort-select" class="sort-label">Trier par</label>
+          <div class="custom-select">
+            <select
+              id="sort-select"
+              class="sort-select"
+              aria-label="Trier les médias par"
+            >
+              <option value="popularity">Popularité</option>
+              <option value="date">Date</option>
+              <option value="title">Titre</option>
+            </select>
+            <div class="select-arrow" aria-hidden="true">▼</div>
+          </div>
+        </div>
+
+        <div class="photograph-media"></div>
+      </main>
+      <div
+        id="contact_modal"
+        role="dialog"
+        aria-labelledby="modal-title"
+        aria-modal="true"
+        aria-hidden="true"
+      >
+        <div class="modal">
+          <header>
+            <div class="modal-title-container">
+              <h2 id="modal-title">Contactez-moi</h2>
+              <p
+                id="photographer-name-modal"
+                class="photographer-name-modal"
+              ></p>
+            </div>
+            <button
+              type="button"
+              class="close-modal"
+              onclick="closeModal()"
+              aria-label="Fermer la modal de contact"
+              tabindex="0"
+            >
+              <img src="assets/icons/close.svg" alt="" aria-hidden="true" />
+            </button>
+          </header>
+          <form id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="firstname">Prénom</label>
+              <input
+                id="firstname"
+                name="firstname"
+                type="text"
+                required
+                aria-required="true"
+                aria-describedby="firstname-error"
+              />
+              <span
+                id="firstname-error"
+                class="error-message"
+                aria-live="polite"
+              ></span>
+            </div>
+            <div class="form-group">
+              <label for="lastname">Nom</label>
+              <input
+                id="lastname"
+                name="lastname"
+                type="text"
+                required
+                aria-required="true"
+                aria-describedby="lastname-error"
+              />
+              <span
+                id="lastname-error"
+                class="error-message"
+                aria-live="polite"
+              ></span>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                aria-required="true"
+                aria-describedby="email-error"
+              />
+              <span
+                id="email-error"
+                class="error-message"
+                aria-live="polite"
+              ></span>
+            </div>
+            <div class="form-group">
+              <label for="message">Votre message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                required
+                aria-required="true"
+                aria-describedby="message-error"
+              ></textarea>
+              <span
+                id="message-error"
+                class="error-message"
+                aria-live="polite"
+              ></span>
+            </div>
+            <button class="contact_button" type="submit">Envoyer</button>
+          </form>
+        </div>
+      </div>
+
+      <div
+        id="lightbox_modal"
+        role="dialog"
+        aria-labelledby="lightbox-title"
+        aria-modal="true"
+        aria-hidden="true"
+      >
+        <div class="lightbox">
+          <header class="lightbox-header">
+            <button
+              type="button"
+              class="close-lightbox"
+              aria-label="Fermer la lightbox"
+              tabindex="0"
+            >
+              <img src="assets/icons/close.svg" alt="" aria-hidden="true" />
+            </button>
+          </header>
+
+          <div class="lightbox-content">
+            <button
+              type="button"
+              class="lightbox-nav lightbox-prev"
+              aria-label="Image précédente"
+              tabindex="0"
+            >
+              <span aria-hidden="true">❮</span>
+            </button>
+
+            <div class="lightbox-media-container">
+              <div id="lightbox-media" class="lightbox-media"></div>
+              <div class="lightbox-info">
+                <h2 id="lightbox-title" class="lightbox-media-title">
+                  Titre du média
+                </h2>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="lightbox-nav lightbox-next"
+              aria-label="Image suivante"
+              tabindex="0"
+            >
+              <span aria-hidden="true">❯</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Price badge moved outside .page-content so fixed positioning is relative to viewport -->
+    <div class="price-badge">
+      <div class="total-likes">
+        <span id="total-likes-count">0</span>
+        <span class="heart-icon">❤</span>
+      </div>
+      <div class="daily-price">
+        <span id="daily-price">0€ / jour</span>
+      </div>
+    </div>
+
+    <script src="scripts/utils/pageTransitions.js"></script>
+    <script src="scripts/factories/media.js"></script>
+    <script src="scripts/templates/photographer.js"></script>
+    <script src="scripts/templates/photographerPage.js"></script>
+    <script src="scripts/utils/lightbox.js"></script>
+    <script src="scripts/pages/photographer.js"></script>
+
+    <script>
+      // Fonctions pour la modale de contact
+      function displayModal() {
+        console.log("Ouverture de la modale de contact");
+        const modal = document.getElementById("contact_modal");
+
+        if (modal) {
+          // Sauvegarder l'élément qui avait le focus
+          window.previouslyFocusedElement = document.activeElement;
+
+          // Afficher la modale
+          modal.style.display = "flex";
+          modal.setAttribute("aria-hidden", "false");
+
+          // Donner le focus au premier champ
+          const firstInput = modal.querySelector("input");
+          if (firstInput) {
+            setTimeout(() => firstInput.focus(), 100);
+          }
+
+          // Empêcher le défilement du body
+          document.body.style.overflow = "hidden";
+
+          console.log("Modale ouverte avec succès");
+        } else {
+          console.error("Modale non trouvée");
+        }
+      }
+
+      function closeModal() {
+        console.log("Fermeture de la modale de contact");
+        const modal = document.getElementById("contact_modal");
+
+        if (modal) {
+          // Masquer la modale
+          modal.style.display = "none";
+          modal.setAttribute("aria-hidden", "true");
+
+          // Restaurer le focus sur l'élément précédent
+          if (window.previouslyFocusedElement) {
+            window.previouslyFocusedElement.focus();
+          }
+
+          // Restaurer le défilement du body
+          document.body.style.overflow = "auto";
+
+          // Réinitialiser le formulaire
+          const form = modal.querySelector("#contact-form");
+          if (form) {
+            form.reset();
+            // Effacer les erreurs
+            const errorElements = form.querySelectorAll(".error-message");
+            errorElements.forEach((error) => (error.textContent = ""));
+            const fields = form.querySelectorAll("input, textarea");
+            fields.forEach((field) => {
+              field.classList.remove("field-error");
+              field.setAttribute("aria-invalid", "false");
+            });
+          }
+
+          console.log("Modale fermée avec succès");
+        }
+      }
+
+      // Gestion du formulaire
+      function handleFormSubmit(e) {
+        e.preventDefault();
+        console.log("Soumission du formulaire");
+
+        const form = e.target;
+        const formData = new FormData(form);
+
+        // Récupérer les données
+        const contactData = {
+          firstname: formData.get("firstname")?.trim() || "",
+          lastname: formData.get("lastname")?.trim() || "",
+          email: formData.get("email")?.trim() || "",
+          message: formData.get("message")?.trim() || "",
+        };
+
+        console.log("Données récupérées:", contactData);
+
+        // Validation améliorée
+        let errors = [];
+
+        if (!contactData.firstname || contactData.firstname.length < 2) {
+          errors.push("Le prénom doit contenir au moins 2 caractères");
+        }
+
+        if (!contactData.lastname || contactData.lastname.length < 2) {
+          errors.push("Le nom doit contenir au moins 2 caractères");
+        }
+
+        // Validation email plus robuste
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!contactData.email || !emailRegex.test(contactData.email)) {
+          errors.push("Veuillez entrer une adresse email valide");
+        }
+
+        if (!contactData.message || contactData.message.length < 5) {
+          errors.push("Le message doit contenir au moins 5 caractères");
+        }
+
+        if (errors.length > 0) {
+          console.log("Erreurs de validation:", errors);
+          alert("Erreurs dans le formulaire:\n" + errors.join("\n"));
+          return;
+        }
+
+        // Si tout est valide, afficher les données dans la console
+        console.log("=== DONNÉES DU FORMULAIRE DE CONTACT ===");
+        console.log("Prénom:", contactData.firstname);
+        console.log("Nom:", contactData.lastname);
+        console.log("Email:", contactData.email);
+        console.log("Message:", contactData.message);
+        console.log("==========================================");
+
+        // Message de succès
+        alert("Votre message a été envoyé avec succès !");
+
+        // Fermer la modale
+        closeModal();
+      }
+
+      // Initialisation quand le DOM est chargé
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("Initialisation des événements de la modale");
+
+        try {
+          // Configurer le formulaire
+          const form = document.getElementById("contact-form");
+          if (form) {
+            form.addEventListener("submit", handleFormSubmit);
+            console.log("✓ Formulaire de contact configuré");
+          } else {
+            console.error("✗ Formulaire de contact non trouvé");
+          }
+
+          // Configurer la fermeture avec Escape
+          document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+              const modal = document.getElementById("contact_modal");
+              if (modal && modal.style.display === "flex") {
+                closeModal();
+              }
+            }
+          });
+
+          // Fermeture en cliquant sur le fond
+          const modal = document.getElementById("contact_modal");
+          if (modal) {
+            modal.addEventListener("click", function (e) {
+              if (e.target === modal) {
+                closeModal();
+              }
+            });
+            console.log("✓ Gestionnaires de fermeture configurés");
+          } else {
+            console.error("✗ Modale non trouvée");
+          }
+
+          console.log("✓ Tous les événements de la modale sont configurés");
+        } catch (error) {
+          console.error("Erreur lors de l'initialisation:", error);
+        }
+      });
+
+      // Rendre les fonctions disponibles globalement
+      window.displayModal = displayModal;
+      window.closeModal = closeModal;
+    </script>
+  </body>
+</html>

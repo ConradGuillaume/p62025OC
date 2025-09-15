@@ -1,0 +1,12 @@
+{
+  "extends": "stylelint-config-standard",
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "selector-id-pattern": null,
+    "selector-class-pattern": null,
+    "alpha-value-notation": null,
+    "no-duplicate-selectors": null,
+    "declaration-block-no-duplicate-properties": null,
+    "order/order": null
+  }
+}

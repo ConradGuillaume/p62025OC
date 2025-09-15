@@ -1,0 +1,57 @@
+<!--
+  File: index.html
+  Purpose: [Short description of this HTML file's responsibility]
+  Author: [Your Name] <you@example.com>
+  Date: 2025-09-15
+  Notes:
+    - Keep templates accessible: correct ARIA, semantic elements.
+    - Avoid inline JS; prefer separate modules where possible.
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <title>Fisheye - Nos photographes</title>
+    <meta
+      name="description"
+      content="Découvrez nos photographes talentueux spécialisés dans différents domaines : portrait, mariage, voyage, architecture et bien plus."
+    />
+  </head>
+  <body>
+    
+    <div class="page-loader" id="pageLoader">
+      <div class="loader-spinner"></div>
+      <div class="loader-text">Chargement des photographes...</div>
+    </div>
+
+    <div class="page-content" id="pageContent">
+      <header role="banner">
+        <img
+          src="assets/images/logo.png"
+          class="logo"
+          alt="Fisheye, plateforme de photographes"
+        />
+        <h1>Nos photographes</h1>
+      </header>
+      <main id="main" role="main">
+        <section
+          class="photographer_section"
+          role="list"
+          aria-label="Liste des photographes"
+        ></section>
+      </main>
+    </div>
+    <script src="scripts/utils/imagePreloader.js"></script>
+    <script src="scripts/utils/pageTransitions.js"></script>
+    <script src="scripts/templates/photographer.js"></script>
+    <script src="scripts/pages/index.js"></script>
+  </body>
+</html>

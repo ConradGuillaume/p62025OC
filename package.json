@@ -1,0 +1,18 @@
+{
+  "name": "front-end-fisheye",
+  "version": "1.0.0",
+  "description": "Portfolio front-end project",
+  "private": true,
+  "scripts": {
+    "lint:js": "eslint \"**/*.js\" --ext .js",
+    "lint:css": "stylelint \"**/*.css\"",
+    "lint": "npm run lint:js && npm run lint:css"
+  },
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "eslint-plugin-html": "^7.1.0",
+    "stylelint": "^15.0.0",
+    "stylelint-config-standard": "^34.0.0",
+    "stylelint-order": "^5.0.0"
+  }
+}
