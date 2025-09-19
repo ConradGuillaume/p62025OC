@@ -19,8 +19,6 @@ dist/
 # IDE
 .vscode/
 
-# Assets (large media) - keep images separate if needed
-assets/photographers/**/ 
 
 # Misc
 .env

@@ -124,9 +124,9 @@ function displayPhotographerMedia(media, photographerName) {
     return;
   }
 
-  // Affichage des médias avec la factory (silencieux)
 
-  // Default sort: popularité
+
+  // Default sort: popularité 
   const sortedMedia = currentPhotographerMedia.slice().sort((a, b) => {
     if (b.likes !== a.likes) {
       return b.likes - a.likes; // Tri par likes décroissant
