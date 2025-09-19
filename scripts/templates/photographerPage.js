@@ -1,34 +1,33 @@
-
 function photographerPageTemplate(photographer) {
   const { name, id, city, country, tagline, price, portrait } = photographer;
 
   function getPhotographerHeaderDOM() {
     // Créer la structure de l'en-tête
-    const photographerInfo = document.createElement('div');
-    photographerInfo.className = 'photographer-info';
+    const photographerInfo = document.createElement("div");
+    photographerInfo.className = "photographer-info";
 
-    const nameElement = document.createElement('h1');
+    const nameElement = document.createElement("h1");
     nameElement.textContent = name;
-    nameElement.className = 'photographer-page-name';
-    nameElement.setAttribute('tabindex', '0');
-    nameElement.setAttribute('role', 'heading');
-    nameElement.setAttribute('aria-level', '1');
+    nameElement.className = "photographer-page-name";
+    nameElement.setAttribute("tabindex", "0");
+    nameElement.setAttribute("role", "heading");
+    nameElement.setAttribute("aria-level", "1");
 
-    const locationElement = document.createElement('p');
+    const locationElement = document.createElement("p");
     locationElement.textContent = `${city}, ${country}`;
-    locationElement.className = 'photographer-page-location';
-    locationElement.setAttribute('tabindex', '0');
+    locationElement.className = "photographer-page-location";
+    locationElement.setAttribute("tabindex", "0");
     locationElement.setAttribute(
-      'aria-label',
+      "aria-label",
       `Photographe basé à ${city}, ${country}`
     );
 
-    const taglineElement = document.createElement('p');
+    const taglineElement = document.createElement("p");
     taglineElement.textContent = tagline;
-    taglineElement.className = 'photographer-page-tagline';
-    taglineElement.setAttribute('tabindex', '0');
+    taglineElement.className = "photographer-page-tagline";
+    taglineElement.setAttribute("tabindex", "0");
     taglineElement.setAttribute(
-      'aria-label',
+      "aria-label",
       `Devise du photographe: ${tagline}`
     );
 
@@ -37,44 +36,49 @@ function photographerPageTemplate(photographer) {
     photographerInfo.appendChild(taglineElement);
 
     // Ajouter la photo du photographe
-    const photographerImage = document.createElement('img');
+    const photographerImage = document.createElement("img");
     photographerImage.src = `assets/photographers/Photographers ID Photos/${portrait}`;
     photographerImage.alt = `Portrait de ${name}`;
-    photographerImage.className = 'photographer-page-portrait';
-    photographerImage.setAttribute('tabindex', '0');
-    photographerImage.setAttribute('role', 'img');
+    photographerImage.className = "photographer-page-portrait";
+    photographerImage.setAttribute("tabindex", "0");
+    photographerImage.setAttribute("role", "img");
 
     return { photographerInfo, photographerImage };
   }
 
   function getPriceBadgeDOM() {
     // If the page already includes a .price-badge (server/template), reuse it
-    const existing = document.querySelector('.price-badge');
+    const existing = document.querySelector(".price-badge");
     if (existing) {
       return existing;
     }
 
-    const priceBadge = document.createElement('div');
-    priceBadge.className = 'price-badge';
-    priceBadge.setAttribute('role', 'complementary');
-    priceBadge.setAttribute('aria-label', `Tarif journalier de ${name}`);
+    const priceBadge = document.createElement("div");
+    priceBadge.className = "price-badge";
+    priceBadge.setAttribute("role", "complementary");
+    priceBadge.setAttribute("aria-label", `Tarif journalier de ${name}`);
 
-    const priceText = document.createElement('span');
-    priceText.className = 'price-text';
+    const priceText = document.createElement("span");
+    priceText.className = "price-text";
     priceText.textContent = `${price}€ / jour`;
 
-    const totalLikes = document.createElement('span');
-    totalLikes.className = 'total-likes';
-    totalLikes.setAttribute('id', 'total-likes');
-    totalLikes.setAttribute('aria-label', 'Total des likes');
+    const totalLikes = document.createElement("span");
+    totalLikes.className = "total-likes";
+    totalLikes.setAttribute("id", "total-likes");
+    totalLikes.setAttribute("aria-label", "Total des likes");
 
-    const totalCount = document.createElement('span');
-    totalCount.className = 'total-count';
-    totalCount.textContent = '0';
+    const totalCount = document.createElement("span");
+    totalCount.className = "total-count";
+    totalCount.textContent = "0";
+    // Make updates announce to assistive tech
+    totalCount.setAttribute("id", "total-likes-count");
+    totalCount.setAttribute("role", "status");
+    totalCount.setAttribute("aria-live", "polite");
 
-    const totalHeart = document.createElement('span');
-    totalHeart.className = 'heart-icon';
-    totalHeart.textContent = '❤';
+    const totalHeart = document.createElement("span");
+    totalHeart.className = "heart-icon";
+    totalHeart.textContent = "❤";
+    totalHeart.setAttribute("aria-hidden", "true");
 
     totalLikes.appendChild(totalCount);
     totalLikes.appendChild(totalHeart);
@@ -86,27 +90,27 @@ function photographerPageTemplate(photographer) {
   }
 
   function updateTotalLikes() {
-    const mediaItems = document.querySelectorAll('.media-item');
+    const mediaItems = document.querySelectorAll(".media-item");
     let totalLikes = 0;
 
     mediaItems.forEach((item) => {
-      const likes = parseInt(item.getAttribute('data-likes') || '0');
+      const likes = parseInt(item.getAttribute("data-likes") || "0");
       totalLikes += likes;
     });
 
     // Try the template's own total-likes element, otherwise fall back to existing page structure
-    let totalLikesElement = document.getElementById('total-likes');
+    let totalLikesElement = document.getElementById("total-likes");
     if (!totalLikesElement) {
       // fallback to the existing HTML badge used in photographer.html
-      const fallbackCount = document.getElementById('total-likes-count');
+      const fallbackCount = document.getElementById("total-likes-count");
       if (fallbackCount) {
         fallbackCount.textContent = `${totalLikes}`;
       }
     } else {
-      const countEl = totalLikesElement.querySelector('.total-count');
+      const countEl = totalLikesElement.querySelector(".total-count");
       if (countEl) countEl.textContent = `${totalLikes}`;
       totalLikesElement.setAttribute(
-        'aria-label',
+        "aria-label",
         `${totalLikes} likes au total`
       );
     }
@@ -126,4 +130,8 @@ function photographerPageTemplate(photographer) {
     getPriceBadgeDOM,
     updateTotalLikes,
   };
+}
+
+if (typeof window !== "undefined") {
+  window.photographerPageTemplate = photographerPageTemplate;
 }

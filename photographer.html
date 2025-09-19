@@ -33,10 +33,7 @@
       </header>
       <main id="main" role="main">
         <div class="photograph-header">
-          <button
-            class="contact_button"
-            onclick="displayModal(); console.log('onclick déclenché');"
-          >
+          <button class="contact_button" onclick="displayModal();">
             Contactez-moi
           </button>
         </div>
@@ -209,8 +206,8 @@
     <!-- Price badge moved outside .page-content so fixed positioning is relative to viewport -->
     <div class="price-badge">
       <div class="total-likes">
-        <span id="total-likes-count">0</span>
-        <span class="heart-icon">❤</span>
+        <span id="total-likes-count" role="status" aria-live="polite">0</span>
+        <span class="heart-icon" aria-hidden="true">❤</span>
       </div>
       <div class="daily-price">
         <span id="daily-price">0€ / jour</span>
@@ -227,7 +224,6 @@
     <script>
       // Fonctions pour la modale de contact
       function displayModal() {
-        console.log("Ouverture de la modale de contact");
         const modal = document.getElementById("contact_modal");
 
         if (modal) {
@@ -247,14 +243,13 @@
           // Empêcher le défilement du body
           document.body.style.overflow = "hidden";
 
-          console.log("Modale ouverte avec succès");
+          // Modale ouverte
         } else {
-          console.error("Modale non trouvée");
+          // Modale non trouvée
         }
       }
 
       function closeModal() {
-        console.log("Fermeture de la modale de contact");
         const modal = document.getElementById("contact_modal");
 
         if (modal) {
@@ -284,14 +279,14 @@
             });
           }
 
-          console.log("Modale fermée avec succès");
+          // Modale fermée
         }
       }
 
       // Gestion du formulaire
       function handleFormSubmit(e) {
         e.preventDefault();
-        console.log("Soumission du formulaire");
+        // Soumission du formulaire
 
         const form = e.target;
         const formData = new FormData(form);
@@ -304,7 +299,7 @@
           message: formData.get("message")?.trim() || "",
         };
 
-        console.log("Données récupérées:", contactData);
+        // Données récupérées
 
         // Validation améliorée
         let errors = [];
@@ -328,18 +323,13 @@
         }
 
         if (errors.length > 0) {
-          console.log("Erreurs de validation:", errors);
+          // Erreurs de validation
           alert("Erreurs dans le formulaire:\n" + errors.join("\n"));
           return;
         }
 
         // Si tout est valide, afficher les données dans la console
-        console.log("=== DONNÉES DU FORMULAIRE DE CONTACT ===");
-        console.log("Prénom:", contactData.firstname);
-        console.log("Nom:", contactData.lastname);
-        console.log("Email:", contactData.email);
-        console.log("Message:", contactData.message);
-        console.log("==========================================");
+        // Form data logging is handled by contactForm.js
 
         // Message de succès
         alert("Votre message a été envoyé avec succès !");
@@ -350,16 +340,16 @@
 
       // Initialisation quand le DOM est chargé
       document.addEventListener("DOMContentLoaded", function () {
-        console.log("Initialisation des événements de la modale");
+        // Initialisation des événements de la modale
 
         try {
           // Configurer le formulaire
           const form = document.getElementById("contact-form");
           if (form) {
             form.addEventListener("submit", handleFormSubmit);
-            console.log("✓ Formulaire de contact configuré");
+            // Formulaire de contact configuré
           } else {
-            console.error("✗ Formulaire de contact non trouvé");
+            // Formulaire de contact non trouvé
           }
 
           // Configurer la fermeture avec Escape
@@ -380,14 +370,14 @@
                 closeModal();
               }
             });
-            console.log("✓ Gestionnaires de fermeture configurés");
+            // Gestionnaires de fermeture configurés
           } else {
-            console.error("✗ Modale non trouvée");
+            // Modale non trouvée
           }
 
-          console.log("✓ Tous les événements de la modale sont configurés");
+          // Tous les événements de la modale sont configurés
         } catch (error) {
-          console.error("Erreur lors de l'initialisation:", error);
+          // Erreur lors de l'initialisation
         }
       });
 

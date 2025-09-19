@@ -1,4 +1,3 @@
-
 // Variables globales pour la LightBox
 let lightboxMediaData = [];
 let currentMediaIndex = 0;
@@ -24,7 +23,7 @@ let __lastUserGesture = { time: 0, isTrusted: false };
 // Initialiser la lightbox avec les données des médias
 function initializeLightbox(mediaData) {
   lightboxMediaData = mediaData;
-  console.log('LightBox initialisée avec', mediaData.length, 'médias');
+  // LightBox initialisée avec medias (silencieux en production)
 }
 
 // Ouvrir la lightbox avec un média spécifique
@@ -36,14 +35,7 @@ function openLightbox(mediaData, photographerName, options) {
       window.location.hostname === 'localhost' ||
       window.location.hostname === '127.0.0.1';
     if (debugEnabled) {
-      console.groupCollapsed(
-        '[debug] openLightbox called',
-        mediaData && mediaData.title
-      );
-      console.log('arguments:', { mediaData, photographerName, options });
-      console.log('__lastUserGesture:', __lastUserGesture);
-      console.trace();
-      console.groupEnd();
+      // Debug instrumentation (disabled by default) - enable via localStorage.debug_lightbox
     }
   } catch (dbgErr) {
     // ignore debug errors
@@ -60,10 +52,7 @@ function openLightbox(mediaData, photographerName, options) {
         Date.now() - __lastUserGesture.time < MAX_GESTURE_AGE
       )
     ) {
-      console.warn(
-        'openLightbox bloquée : pas de geste utilisateur récent (évite ouverture auto).',
-        mediaData && mediaData.title
-      );
+      // openLightbox blocked: no recent user gesture
       return;
     }
   }
@@ -74,7 +63,7 @@ function openLightbox(mediaData, photographerName, options) {
   );
 
   if (currentMediaIndex === -1) {
-    console.error('Média non trouvé dans la liste');
+    // Média non trouvé dans la liste
     return;
   }
 
@@ -107,7 +96,7 @@ function openLightbox(mediaData, photographerName, options) {
   // Empêcher le défilement du body
   document.body.style.overflow = 'hidden';
 
-  console.log(`LightBox ouverte pour: ${mediaData.title}`);
+  // LightBox ouverte pour: (silencieux)
 }
 
 // Fermer la lightbox
@@ -130,7 +119,7 @@ function closeLightbox() {
   // Restaurer le défilement du body
   document.body.style.overflow = '';
 
-  console.log('LightBox fermée');
+  // LightBox fermée
 }
 
 // Charger un média dans la lightbox
@@ -190,11 +179,7 @@ function loadMediaInLightbox(index, photographerName) {
   const lightbox = document.getElementById('lightbox_modal');
   lightbox.setAttribute('aria-labelledby', 'lightbox-title');
 
-  console.log(
-    `Média chargé: ${mediaData.title} (${index + 1}/${
-      lightboxMediaData.length
-    })`
-  );
+  // Média chargé (silencieux)
 }
 
 // Mettre à jour l'état des boutons de navigation

@@ -1,4 +1,3 @@
-
 // Gestionnaire de transitions entre pages - Version simplifiée
 class PageTransitionManager {
   constructor() {
@@ -9,7 +8,7 @@ class PageTransitionManager {
   }
 
   init() {
-    console.log('Initialisation du gestionnaire de transitions');
+    // Initialisation du gestionnaire de transitions
 
     // S'assurer que le contenu est caché au départ
     if (this.content) {
@@ -27,7 +26,7 @@ class PageTransitionManager {
   }
 
   startLoadingSequence() {
-    console.log('Démarrage de la séquence de chargement');
+    // Démarrage de la séquence de chargement
 
     // Délai minimum pour l'animation + attente des scripts
     setTimeout(() => {
@@ -37,7 +36,7 @@ class PageTransitionManager {
     // Sécurité: forcer l'affichage après 6 secondes max
     setTimeout(() => {
       if (!this.isInitialized) {
-        console.warn('Timeout atteint - affichage forcé');
+        // Timeout atteint - affichage forcé
         this.showContent();
       }
     }, 6000);
@@ -51,14 +50,14 @@ class PageTransitionManager {
       const mediaDiv = document.querySelector('.photograph-media');
       const headerName = document.querySelector('.photographer-page-name');
       hasContent = mediaDiv && headerName;
-      console.log('Page photographe - contenu présent:', hasContent);
+      // Page photographe - contenu présent: (checked)
     } else {
       const photographerSection = document.querySelector(
         '.photographer_section'
       );
       hasContent =
         photographerSection && photographerSection.children.length > 0;
-      console.log('Page d\'accueil - contenu présent:', hasContent);
+      // Page d'accueil - contenu présent: (checked)
     }
 
     if (hasContent) {
@@ -74,7 +73,7 @@ class PageTransitionManager {
   showContent() {
     if (this.isInitialized) return;
 
-    console.log('Affichage du contenu');
+    // Affichage du contenu
     this.isInitialized = true;
 
     if (this.loader) {
@@ -100,7 +99,7 @@ class PageTransitionManager {
 
   animateMediaItems() {
     const mediaItems = document.querySelectorAll('.media-item');
-    console.log('Animation des éléments médias:', mediaItems.length);
+    // Animation des éléments médias
 
     mediaItems.forEach((item, index) => {
       setTimeout(() => {

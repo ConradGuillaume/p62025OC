@@ -1,18 +1,16 @@
-
-
 // Variables pour gérer l'accessibilité
 let focusableElements = [];
 let previouslyFocusedElement = null;
 
 function displayModal() {
-  const modal = document.getElementById('contact_modal');
+  const modal = document.getElementById("contact_modal");
 
   // Sauvegarder l'élément qui avait le focus
   previouslyFocusedElement = document.activeElement;
 
   // Afficher la modale
-  modal.style.display = 'flex';
-  modal.setAttribute('aria-hidden', 'false');
+  modal.style.display = "flex";
+  modal.setAttribute("aria-hidden", "false");
 
   // Obtenir tous les éléments focusables dans la modale
   focusableElements = modal.querySelectorAll(
@@ -25,21 +23,21 @@ function displayModal() {
   }
 
   // Ajouter les gestionnaires d'événements
-  document.addEventListener('keydown', handleModalKeydown);
-  modal.addEventListener('click', handleModalBackdropClick);
+  document.addEventListener("keydown", handleModalKeydown);
+  modal.addEventListener("click", handleModalBackdropClick);
 
   // Empêcher le défilement du body
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow = "hidden";
 
-  console.log('Modale de contact ouverte');
+  // Modale de contact ouverte
 }
 
 function closeModal() {
-  const modal = document.getElementById('contact_modal');
+  const modal = document.getElementById("contact_modal");
 
   // Masquer la modale
-  modal.style.display = 'none';
-  modal.setAttribute('aria-hidden', 'true');
+  modal.style.display = "none";
+  modal.setAttribute("aria-hidden", "true");
 
   // Restaurer le focus sur l'élément précédent
   if (previouslyFocusedElement) {
@@ -47,28 +45,28 @@ function closeModal() {
   }
 
   // Retirer les gestionnaires d'événements
-  document.removeEventListener('keydown', handleModalKeydown);
-  modal.removeEventListener('click', handleModalBackdropClick);
+  document.removeEventListener("keydown", handleModalKeydown);
+  modal.removeEventListener("click", handleModalBackdropClick);
 
   // Restaurer le défilement du body
-  document.body.style.overflow = '';
+  document.body.style.overflow = "";
 
   // Réinitialiser le formulaire
   resetForm();
 
-  console.log('Modale de contact fermée');
+  // Modale de contact fermée
 }
 
 // Gestion des touches dans la modale
 function handleModalKeydown(e) {
   // Fermer avec Échap
-  if (e.key === 'Escape') {
+  if (e.key === "Escape") {
     closeModal();
     return;
   }
 
   // Piéger le focus dans la modale avec Tab
-  if (e.key === 'Tab') {
+  if (e.key === "Tab") {
     const firstElement = focusableElements[0];
     const lastElement = focusableElements[focusableElements.length - 1];
 
@@ -90,62 +88,63 @@ function handleModalKeydown(e) {
 
 // Fermer la modale en cliquant sur l'arrière-plan
 function handleModalBackdropClick(e) {
-  const modal = document.querySelector('.modal');
-  if (e.target.id === 'contact_modal' && !modal.contains(e.target)) {
+  const modal = document.querySelector(".modal");
+  if (e.target.id === "contact_modal" && !modal.contains(e.target)) {
     closeModal();
   }
 }
 
 // Validation et soumission du formulaire
 function initializeContactForm() {
-  console.log('=== Initialisation du formulaire de contact ===');
+  // Initialisation du formulaire de contact
 
   // Configurer le formulaire
-  const form = document.getElementById('contact-form');
+  const form = document.getElementById("contact-form");
   if (form) {
-    form.addEventListener('submit', handleFormSubmit);
+    form.addEventListener("submit", handleFormSubmit);
 
     // Ajouter la validation en temps réel
-    const inputs = form.querySelectorAll('input, textarea');
+    const inputs = form.querySelectorAll("input, textarea");
     inputs.forEach((input) => {
-      input.addEventListener('blur', () => validateField(input));
-      input.addEventListener('input', () => clearError(input));
+      input.addEventListener("blur", () => validateField(input));
+      input.addEventListener("input", () => clearError(input));
     });
-    console.log('✓ Formulaire configuré');
+    // Formulaire configuré
   } else {
-    console.error('✗ Formulaire non trouvé');
+    // Formulaire non trouvé
   }
 
   // Ajouter les gestionnaires d'événements aux boutons
-  const contactButton = document.querySelector('.contact_button');
-  const closeButton = document.querySelector('.close-modal');
+  const contactButton = document.querySelector(".contact_button");
+  const closeButton = document.querySelector(".close-modal");
 
-  console.log('Recherche du bouton contact...', contactButton);
-  console.log('Recherche du bouton fermeture...', closeButton);
+  // Recherche du bouton contact
+  // Recherche du bouton fermeture
 
   if (contactButton) {
-    // Vérifier s'il a déjà un onclick
-    const hasOnclick = contactButton.hasAttribute('onclick');
-    console.log('Bouton contact trouvé, a onclick:', hasOnclick);
+    // Vérifier s'il a déjà un onclick (si nécessaire)
+    if (contactButton.hasAttribute("onclick")) {
+      // existing onclick present
+    }
 
     // Ajouter un eventListener sans supprimer l'onclick (pour double sécurité)
-    contactButton.addEventListener('click', function () {
-      console.log('Click détecté sur le bouton contact');
+    contactButton.addEventListener("click", function () {
+      // Click détecté sur le bouton contact
       displayModal();
     });
-    console.log('✓ Bouton contact configuré');
+    // Bouton contact configuré
   } else {
-    console.error('✗ Bouton contact non trouvé');
+    // Bouton contact non trouvé
   }
 
   if (closeButton) {
-    closeButton.addEventListener('click', closeModal);
-    console.log('✓ Bouton fermeture configuré');
+    closeButton.addEventListener("click", closeModal);
+    // Bouton fermeture configuré
   } else {
-    console.error('✗ Bouton fermeture non trouvé');
+    // Bouton fermeture non trouvé
   }
 
-  console.log('=== Fin initialisation contact ===');
+  // Fin initialisation contact
 }
 
 function handleFormSubmit(e) {
@@ -161,22 +160,22 @@ function handleFormSubmit(e) {
   if (isValid) {
     // Créer un objet avec les données du formulaire
     const contactData = {
-      firstname: formData.get('firstname'),
-      lastname: formData.get('lastname'),
-      email: formData.get('email'),
-      message: formData.get('message'),
+      firstname: formData.get("firstname"),
+      lastname: formData.get("lastname"),
+      email: formData.get("email"),
+      message: formData.get("message"),
     };
 
     // Afficher les données dans la console (comme demandé)
-    console.log('=== DONNÉES DU FORMULAIRE DE CONTACT ===');
-    console.log('Prénom:', contactData.firstname);
-    console.log('Nom:', contactData.lastname);
-    console.log('Email:', contactData.email);
-    console.log('Message:', contactData.message);
-    console.log('==========================================');
+    console.log("=== DONNÉES DU FORMULAIRE DE CONTACT ===");
+    console.log("Prénom:", contactData.firstname);
+    console.log("Nom:", contactData.lastname);
+    console.log("Email:", contactData.email);
+    console.log("Message:", contactData.message);
+    console.log("==========================================");
 
     // Afficher un message de succès (optionnel)
-    alert('Votre message a été envoyé avec succès !');
+    alert("Votre message a été envoyé avec succès !");
 
     // Fermer la modale
     closeModal();
@@ -184,7 +183,7 @@ function handleFormSubmit(e) {
 }
 
 function validateForm(form) {
-  const inputs = form.querySelectorAll('input, textarea');
+  const inputs = form.querySelectorAll("input, textarea");
   let isValid = true;
 
   inputs.forEach((input) => {
@@ -200,91 +199,91 @@ function validateField(field) {
   const value = field.value.trim();
   const fieldName = field.name;
   let isValid = true;
-  let errorMessage = '';
+  let errorMessage = "";
 
   // Validation requise
-  if (field.hasAttribute('required') && !value) {
+  if (field.hasAttribute("required") && !value) {
     isValid = false;
-    errorMessage = 'Ce champ est requis.';
+    errorMessage = "Ce champ est requis.";
   }
   // Validation email
-  else if (fieldName === 'email' && value) {
+  else if (fieldName === "email" && value) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(value)) {
       isValid = false;
-      errorMessage = 'Veuillez entrer une adresse email valide.';
+      errorMessage = "Veuillez entrer une adresse email valide.";
     }
   }
   // Validation longueur minimale
   else if (value && value.length < 2) {
     isValid = false;
-    errorMessage = 'Ce champ doit contenir au moins 2 caractères.';
+    errorMessage = "Ce champ doit contenir au moins 2 caractères.";
   }
 
   // Afficher ou masquer l'erreur
-  showFieldError(field, isValid ? '' : errorMessage);
+  showFieldError(field, isValid ? "" : errorMessage);
 
   return isValid;
 }
 
 function showFieldError(field, message) {
-  const errorElement = document.getElementById(field.name + '-error');
+  const errorElement = document.getElementById(field.name + "-error");
   if (errorElement) {
     errorElement.textContent = message;
 
     // Ajouter/retirer la classe d'erreur sur le champ
     if (message) {
-      field.classList.add('field-error');
-      field.setAttribute('aria-invalid', 'true');
+      field.classList.add("field-error");
+      field.setAttribute("aria-invalid", "true");
     } else {
-      field.classList.remove('field-error');
-      field.setAttribute('aria-invalid', 'false');
+      field.classList.remove("field-error");
+      field.setAttribute("aria-invalid", "false");
     }
   }
 }
 
 function clearError(field) {
   // Effacer l'erreur quand l'utilisateur commence à taper
-  const errorElement = document.getElementById(field.name + '-error');
+  const errorElement = document.getElementById(field.name + "-error");
   if (errorElement && errorElement.textContent) {
-    errorElement.textContent = '';
-    field.classList.remove('field-error');
-    field.setAttribute('aria-invalid', 'false');
+    errorElement.textContent = "";
+    field.classList.remove("field-error");
+    field.setAttribute("aria-invalid", "false");
   }
 }
 
 function resetForm() {
-  const form = document.getElementById('contact-form');
+  const form = document.getElementById("contact-form");
   if (!form) return;
 
   // Réinitialiser les valeurs
   form.reset();
 
   // Effacer toutes les erreurs
-  const errorElements = form.querySelectorAll('.error-message');
-  errorElements.forEach((error) => (error.textContent = ''));
+  const errorElements = form.querySelectorAll(".error-message");
+  errorElements.forEach((error) => (error.textContent = ""));
 
   // Retirer les classes d'erreur
-  const fields = form.querySelectorAll('input, textarea');
+  const fields = form.querySelectorAll("input, textarea");
   fields.forEach((field) => {
-    field.classList.remove('field-error');
-    field.setAttribute('aria-invalid', 'false');
+    field.classList.remove("field-error");
+    field.setAttribute("aria-invalid", "false");
   });
 }
 
 // Initialiser le formulaire au chargement de la page avec un délai
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
   // Attendre que tous les autres scripts aient configuré la page
   setTimeout(initializeContactForm, 100);
 });
 
 // Aussi s'initialiser si la page est déjà chargée
-if (document.readyState !== 'loading') {
+if (document.readyState !== "loading") {
   setTimeout(initializeContactForm, 100);
 }
 
 // Exposer les fonctions globalement pour compatibilité
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   window.displayModal = displayModal;
   window.closeModal = closeModal;
 }

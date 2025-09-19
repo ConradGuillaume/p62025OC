@@ -1,5 +1,3 @@
-
-
 // Gestionnaire de préchargement des images
 class ImagePreloader {
   constructor() {
@@ -22,18 +20,18 @@ class ImagePreloader {
     // Créer une nouvelle promesse de chargement
     const loadPromise = new Promise((resolve, reject) => {
       const img = new Image();
-      
+
       img.onload = () => {
         this.preloadedImages.add(src);
         this.loadingPromises.delete(src);
         resolve();
       };
-      
+
       img.onerror = () => {
         this.loadingPromises.delete(src);
         reject(new Error(`Failed to load image: ${src}`));
       };
-      
+
       img.src = src;
     });
 
@@ -43,21 +41,21 @@ class ImagePreloader {
 
   // Précharger plusieurs images
   async preloadImages(imageSources) {
-    const promises = imageSources.map(src => this.preloadImage(src));
-    
+    const promises = imageSources.map((src) => this.preloadImage(src));
+
     try {
       await Promise.all(promises);
-      console.log(`${imageSources.length} images préchargées avec succès`);
+      // Images préchargées
     } catch (error) {
-      console.warn('Certaines images n\'ont pas pu être préchargées:', error);
+      // Certaines images n'ont pas pu être préchargées
     }
   }
 
   // Précharger les images des médias
   async preloadMediaImages(mediaData, photographerName) {
     const imageSources = [];
-    
-    mediaData.forEach(media => {
+
+    mediaData.forEach((media) => {
       if (media.image) {
         const folderMapping = {
           'Mimi Keel': 'Mimi',
@@ -67,8 +65,9 @@ class ImagePreloader {
           'Rhode Dubois': 'Rhode',
           'Marcel Nikolic': 'Marcel',
         };
-        
-        const photographerFolder = folderMapping[photographerName] || photographerName;
+
+        const photographerFolder =
+          folderMapping[photographerName] || photographerName;
         const imagePath = `assets/photographers/${photographerFolder}/${media.image}`;
         imageSources.push(imagePath);
       }
@@ -79,7 +78,9 @@ class ImagePreloader {
 
   // Précharger les portraits des photographes
   async preloadPhotographerPortraits(photographers) {
-    const portraitSources = photographers.map(photographer => photographer.portrait);
+    const portraitSources = photographers.map(
+      (photographer) => photographer.portrait
+    );
     await this.preloadImages(portraitSources);
   }
 }
